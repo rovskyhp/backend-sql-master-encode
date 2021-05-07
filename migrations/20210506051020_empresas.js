@@ -1,5 +1,5 @@
 
-exports.up = function(knex) {
+exports.up = (knex, Promise) => {
     return knex.schema.createTable('empresas', (table) => {
         table.increments('id_empresa').primary();
         table.string('nombre', 255).notNullable();
@@ -12,6 +12,6 @@ exports.up = function(knex) {
     });
 };
 
-exports.down = function(knex) {
+exports.down = (knex, Promise) => {
     return knex.schema.dropTableIfExists('empresas');
 };

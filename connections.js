@@ -1,5 +1,7 @@
+require('.knexfile');
+
 const knex = require('knex')({
-    client: 'mysql',
+    client: 'postgresql',
     connection: {
       host : 'localhost',
       user : 'postgres',
