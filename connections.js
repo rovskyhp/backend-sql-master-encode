@@ -1,6 +1,4 @@
-require('.knexfile');
-
-const knex = require('knex')({
+const knex_client = require('knex')({
     client: 'postgresql',
     connection: {
       host : 'localhost',
@@ -12,3 +10,5 @@ const knex = require('knex')({
       tableName: 'migrations'
     }
   });
+
+  module.exports = knex_client;
