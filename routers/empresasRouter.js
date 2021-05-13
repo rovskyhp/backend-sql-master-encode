@@ -10,7 +10,7 @@ router.post('/empresas', EmpresasController.create);
 router.get('/empresas', EmpresasController.findAll);
 
 // // Read One
-// router.get('/empresas/:idEmpresa', EmpresasController.findOneById);
+router.get('/empresas/:idEmpresa', EmpresasController.findOneById);
 
 // // Update One
 // router.patch('/empresas/:idEmpresa', EmpresasController.updateOneById);

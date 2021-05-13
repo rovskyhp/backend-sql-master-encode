@@ -10,6 +10,7 @@ const TABLE_COLUMNS = [
     'salario',
     'tipo_de_trabajo',
     'estatus',
+    'is_active',
     'created_at'
 ];
 

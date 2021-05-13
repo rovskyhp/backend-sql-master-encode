@@ -45,7 +45,27 @@ const create = (req, res) => {
     }
   }
 
+  const findOneById = async (req, res) => {
+    const { idProspecto } = req.params;
+  
+    try {
+      const response = await Prospecto.findOneById(idProspecto);
+      if (response.length === 0) return res.status(404).json({ message: "provided prospecto doesn't exist" });
+      return res.status(200).json({
+        message: 'Successfully obtained prospecto by id',
+        response,
+      });
+      
+    } catch (error) {
+      return res.status(500).json({
+        message: "Server error",
+        error,
+      });
+    }
+  }
+
   module.exports = {
     create,
-    findAll
+    findAll,
+    findOneById,
   }

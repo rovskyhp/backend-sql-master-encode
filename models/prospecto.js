@@ -13,6 +13,7 @@ const TABLE_COLUMNS = [
     'estado_provincia',
     'codigo_postal',
     'pais',
+    'is_active',
     'created_at'
 ];
 

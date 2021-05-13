@@ -10,7 +10,7 @@ router.post('/prospectos', ProspectosController.create);
 router.get('/prospectos', ProspectosController.findAll);
 
 // // Read One
-// router.get('/prospectos/:idProspecto', ProspectosController.findOneById);
+ router.get('/prospectos/:idProspecto', ProspectosController.findOneById);
 
 // // Update One
 // router.patch('/prospectos/:idProspecto', ProspectosController.updateOneById);

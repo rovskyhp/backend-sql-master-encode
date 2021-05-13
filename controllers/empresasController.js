@@ -43,7 +43,27 @@ const create = (req, res) => {
     }
   }
 
+  const findOneById = async (req, res) => {
+    const { idEmpresa } = req.params;
+  
+    try {
+      const response = await Empresa.findOneById(idEmpresa);
+      if (response.length === 0) return res.status(404).json({ message: "provided company doesn't exist" });
+      return res.status(200).json({
+        message: 'Successfully obtained company by id',
+        response,
+      });
+      
+    } catch (error) {
+      return res.status(500).json({
+        message: "Server error",
+        error,
+      });
+    }
+  }
+
   module.exports = {
     create,
-    findAll
+    findAll,
+    findOneById,
   }
