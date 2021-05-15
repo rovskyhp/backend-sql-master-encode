@@ -1,6 +1,7 @@
 const { Prospecto } = require('../models');
 
 const create = (req, res) => {
+    let [...habilidades] = req.body.habilidades;
     // const newProspectop = req.body;
     const newProspecto = {
         nombre: req.body.nombre,
@@ -15,7 +16,7 @@ const create = (req, res) => {
   
     // utilizando knex, insertar el objeto en la base datos
     return Prospecto
-      .create(newProspecto)
+      .createTrx(newProspecto, 'id_prospecto', 'habilidades_prospectos', habilidades, 'prospectos_id_habilidad')
       .then((resDB) => {
         return res.status(200).json({
           message: 'prospecto created',
@@ -49,7 +50,7 @@ const create = (req, res) => {
     const { idProspecto } = req.params;
   
     try {
-      const response = await Prospecto.findOneById(idProspecto);
+      const response = await Prospecto.findOneByWithSkills(idProspecto);
       if (response.length === 0) return res.status(404).json({ message: "provided prospecto doesn't exist" });
       return res.status(200).json({
         message: 'Successfully obtained prospecto by id',

@@ -3,6 +3,33 @@ function createKnexModel(knex, tableName, tableColumns, tableId) {
     return knex(tableName).insert(body);
   }
 
+  const createTrx = (body, tablePrimaryKey, tableRelated, items, fieldRelated) => {
+    // Using trx as a query builder:
+    return knex.transaction(function(trx) {
+      return trx
+        .insert(body)
+        .into({tableName})
+        .transacting(trx)
+        .returning(tablePrimaryKey)
+        .then(tablePrimaryKey =>  {
+          console.log("tablePrimaryKey");
+          console.log(tablePrimaryKey);
+          console.log("items");
+          console.log(items);
+          items.forEach((item) => item[fieldRelated] = Number(tablePrimaryKey));
+          return trx(tableRelated).insert(items);
+        });
+    })
+    .then(function(inserts) {
+      console.log(inserts.length + ' new items saved.');
+    })
+    .catch(function(error) {
+      // If we get here, that means that neither the 'Old Books' catalogues insert,
+      // nor any of the books inserts will have taken place.
+      console.error(error);
+    });
+  }
+
   // query -> { email: 'randy@gmail.com'}
   const find = (query, columns) => {
     return knex
@@ -41,6 +68,7 @@ function createKnexModel(knex, tableName, tableColumns, tableId) {
 
   return {
     create,
+    createTrx,
     find,
     findAll,
     findOneById,
