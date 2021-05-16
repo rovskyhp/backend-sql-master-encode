@@ -1,6 +1,5 @@
 const knex = require('../config');
 const createKnexModel = require('../utils/createKnexModel');
-
 const TABLE = 'prospectos';
 
 const TABLE_COLUMNS = [
@@ -37,18 +36,21 @@ const Prospecto = createKnexModel(knex, TABLE, TABLE_COLUMNS, TABLE_ID);
 
 
 Prospecto.findOneByWithSkills = (idProspecto) => {
-    console.log(idProspecto);
-    return knex
-      .select(TABLE_COLUMNS_ALIAS.concat(["habilidades.nombre", "habilidades.descripcion"]))
-      .from(`${TABLE} as p`)
-      .join('habilidades_prospectos', 'habilidades_prospectos.prospectos_id_habilidad', '=', 'p.id_prospecto')
-      .join('habilidades', 'habilidades.id_habilidad', '=', 'habilidades_prospectos.habilidades_id_habilidad')
-      .where({ [TABLE_ID]: idProspecto })
-      .catch(function(error) {
-        // If we get here, that means that neither the 'Old Books' catalogues insert,
-        // nor any of the books inserts will have taken place.
-        console.error(error);
-      });
+    console.log("findOneByWithSkills");
+    
+    let prospecto = knex
+    .select(TABLE_COLUMNS_ALIAS)
+    .from(`${TABLE} as p`)
+    .where({ [TABLE_ID]: idProspecto })
+    .catch(function(error) {
+      // If we get here, that means that neither the 'Old Books' catalogues insert,
+      // nor any of the books inserts will have taken place.
+      console.error(error);
+    });
+
+    
+
+    return prospecto;
 }
 
 module.exports = Prospecto;
