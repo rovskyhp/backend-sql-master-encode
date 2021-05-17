@@ -18,10 +18,10 @@ module.exports = {
   staging: {
     client: 'postgresql',
     connection: {
-      host : 'localhost',
-      user : 'postgres',
-      password : '',
-      database : 'skill_tinder'
+      host : 'kashin.db.elephantsql.com',
+      user : 'lflhtgpv',
+      password : 'xAgRGZhQ7bXkW9hfs1XIn_F_3hZLVyIf',
+      database : 'lflhtgpv'
     },
     migrations: {
       tableName: 'migrations'
