@@ -1,4 +1,4 @@
-const { Prospecto,Habilidad_prospecto } = require('../models');
+const { Prospecto } = require('../models');
 
 
 const create = (req, res) => {
@@ -51,42 +51,10 @@ const create = (req, res) => {
     const { idProspecto } = req.params;
   
     try {
-      const prospectoResultset = await Prospecto.findOneByWithSkills(idProspecto);
-      console.log("prospectoResultset");
-      console.log(prospectoResultset);
-      const prospecto = {};
-      prospectoResultset.forEach(row => {
-          if ( !(row.id_prospecto in prospecto) ) {
-              prospecto[row.id_prospecto] = {
-                  id_prospecto: row.id_prospecto,
-                  nombre: row.nombre,
-                  apellido_paterno: row.apellido_paterno,
-                  apellido_materno: row.apellido_materno,
-                  salario: row.salario,
-                  calle_numero: row.calle_numero,
-                  estado_provincia: row.estado_provincia,
-                  codigo_postal: row.codigo_postal,
-                  pais: row.pais,
-                  is_active: row.is_active,
-                  created_at: row.created_at,
-                  habilidades: []
-              }
-          }
-      });
-      const habilidades = await Habilidad_prospecto.findAllForProspect(idProspecto);
-      habilidades.forEach(row => {
-        console.log("row");
-        console.log(row);
-        prospecto[row.prospectos_id_habilidad].habilidades.push({
-          id_habilidad: row.id_habilidad,
-          nombre: row.nombre,
-          descripcion: row.descripcion,
-          calificacion: row.calificacion
-        });
-      });
+      const prospecto = await Prospecto.findOneByWithSkillsKnexNest(idProspecto);
       console.log("prospecto");
       console.log(prospecto);
-      if (prospectoResultset.length === 0) return res.status(404).json({ message: "provided prospecto doesn't exist" });
+      if (prospecto === null) return res.status(404).json({ message: "provided prospecto doesn't exist" });
       return res.status(200).json({
         message: 'Successfully obtained prospecto by id',
         prospecto, 

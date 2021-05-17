@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const { EmpresasController } = require('../controllers');
+const { EmpresasController, VacantesController } = require('../controllers');
 
 // Create
 router.post('/empresas', EmpresasController.create);
@@ -11,6 +11,13 @@ router.get('/empresas', EmpresasController.findAll);
 
 // // Read One
 router.get('/empresas/:idEmpresa', EmpresasController.findOneById);
+
+
+// Create Vacante
+router.post('/empresas/:idEmpresa/vacantes', VacantesController.create);
+
+// Read All
+router.get('/empresas/:idEmpresa/vacantes', VacantesController.findAllByCompanyId);
 
 // // Update One
 // router.patch('/empresas/:idEmpresa', EmpresasController.updateOneById);

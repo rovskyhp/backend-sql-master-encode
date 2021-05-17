@@ -11,6 +11,7 @@ const TABLE_COLUMNS = [
     'tipo_de_trabajo',
     'estatus',
     'is_active',
+    'id_empresa',
     'created_at'
 ];
 
