@@ -10,7 +10,8 @@
     "pg": "^8.6.0"
   },
   "scripts": {
-    "start": "export NODE_ENV=development && nodemon index.js"
+    "startdev": "export NODE_ENV=development && nodemon index.js",
+    "start": "node index.js"
   },
   "devDependencies": {
     "nodemon": "^2.0.7"
